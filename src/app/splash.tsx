@@ -1,15 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
-
-import Button from '@/components/button';
 
 export default function Index() {
-  const router = useRouter();
-
   return (
     <SafeAreaView style={styles.container}>
-      <Button text="Ver Home" onPress={() => router.push('/home')} />
+        <Image source={require('@/assets/images/app_images/IntroImage.png')}/>
     </SafeAreaView>
   );
 }

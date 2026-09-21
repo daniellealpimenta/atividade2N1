@@ -2,14 +2,16 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 
-import Button from '@/components/button';
+import Profile from "@/components/profile"
+import AddButton from '@/components/addButton';
 
 export default function Index() {
   const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button text="Ver Home" onPress={() => router.push('/home')} />
+        <Profile icon={require('@/assets/images/app_images/profile.png')}/>
+        <AddButton icon={require('@/assets/images/app_images/vector.png')}/>
     </SafeAreaView>
   );
 }
