@@ -29,7 +29,7 @@ export default function Index() {
             <Button
                 icon={require('@/assets/images/app_images/discord-logo.png')}
                 text="Entrar com Discord"
-                onPress={() => router.push('/splash')}
+                onPress={() => router.replace('/home')}
             />
         </View>
     </SafeAreaView>

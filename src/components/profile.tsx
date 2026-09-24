@@ -1,13 +1,14 @@
-import { StyleSheet, Image, View, ImageSourcePropType } from "react-native";
+import { StyleSheet, Image, View, TouchableOpacity, ImageSourcePropType } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 type ButtonProps = {
     icon?: ImageSourcePropType;
+    onPress?: () => void;
 }
 
-export default function Profile({icon, }: ButtonProps) {
+export default function Profile({icon, onPress}: ButtonProps) {
     return (
-        <View>
+        <TouchableOpacity onPress={onPress} activeOpacity={0.85} disabled={!onPress}>
             {icon && (
                 <LinearGradient
                     colors={['#243189', '#1B2565']}
@@ -18,7 +19,7 @@ export default function Profile({icon, }: ButtonProps) {
                     </View>
                 </LinearGradient>
             )}
-        </View>
+        </TouchableOpacity>
     )
 }
 

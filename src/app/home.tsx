@@ -1,17 +1,31 @@
+import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 
 import Profile from "@/components/profile"
 import AddButton from '@/components/addButton';
-import Category from '@/components/category';
+import CategoryCard from '@/components/categoryCard';
 import ListComponent from '@/components/listComponent';
+import ExitConfirmModal from '@/components/exitConfirmModal';
 
 export default function Home() {
+  const router = useRouter();
+  const [exitModalVisible, setExitModalVisible] = useState(false);
+
+  const handleExit = () => {
+    setExitModalVisible(false);
+    router.replace('/login');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <View style={styles.profileRow}>
-            <Profile icon={require('@/assets/images/app_images/profile.png')} />
+            <Profile
+              icon={require('@/assets/images/app_images/profile.png')}
+              onPress={() => setExitModalVisible(true)}
+            />
             <View style={styles.greeting}>
               <Text style={styles.greetingText}>
                 Olá, <Text style={styles.greetingName}>Tiago</Text>
@@ -21,7 +35,7 @@ export default function Home() {
           </View>
           <AddButton
             icon={require('@/assets/images/app_images/icons/vector.png')}
-            onPress={() => void 0}
+            onPress={() => router.push('/schedule')}
           />
         </View>
 
@@ -31,22 +45,22 @@ export default function Home() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.categories}
         >
-          <Category
+          <CategoryCard
             icon={require('@/assets/images/app_images/ranqueadaImage.png')}
             text="Ranqueada"
             onPress={() => void 0}
           />
-          <Category
+          <CategoryCard
             icon={require('@/assets/images/app_images/dueloImage.png')}
             text="Duelo 1x1"
             onPress={() => void 0}
           />
-          <Category
+          <CategoryCard
             icon={require('@/assets/images/app_images/diversaoImage.png')}
             text="Diversão"
             onPress={() => void 0}
           />
-          <Category
+          <CategoryCard
             text=""
           />
         </ScrollView>
@@ -63,6 +77,7 @@ export default function Home() {
             type="Ranqueada"
             date="18/06 às 21:00h"
             userType="Anfitrião"
+            onPress={() => router.push('/detail')}
           />
           <ListComponent
             icon={require('@/assets/images/app_images/games_images/redDeadRedemption2.png')}
@@ -70,6 +85,7 @@ export default function Home() {
             type="Diversão"
             date="23/06 às 19:00h"
             userType="Visitante"
+            onPress={() => router.push('/detail')}
           />
           <ListComponent
             icon={require('@/assets/images/app_images/games_images/csgo.png')}
@@ -77,6 +93,7 @@ export default function Home() {
             type="1x1"
             date="20/06 às 09:00h"
             userType="Anfitrião"
+            onPress={() => router.push('/detail')}
           />
           <ListComponent
             icon={require('@/assets/images/app_images/games_images/apex.png')}
@@ -84,6 +101,7 @@ export default function Home() {
             type="Ranqueada"
             date="20/06 às 14:20h"
             userType="Anfitrião"
+            onPress={() => router.push('/detail')}
           />
           <ListComponent
             icon={require('@/assets/images/app_images/games_images/valorant.png')}
@@ -91,8 +109,15 @@ export default function Home() {
             type="Diversão"
             date="18/06 às 21:00h"
             userType="Anfitrião"
+            onPress={() => router.push('/detail')}
           />
         </ScrollView>
+
+        <ExitConfirmModal
+          visible={exitModalVisible}
+          onCancel={() => setExitModalVisible(false)}
+          onConfirm={handleExit}
+        />
     </SafeAreaView>
   );
 }

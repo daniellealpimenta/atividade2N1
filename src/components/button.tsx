@@ -1,14 +1,21 @@
-import { TouchableOpacity, StyleSheet, Text, Image, View, ImageSourcePropType } from "react-native";
+import { TouchableOpacity, StyleSheet, Text, Image, View, ImageSourcePropType, StyleProp, ViewStyle } from "react-native";
 
 type ButtonProps = {
     onPress?: () => void;
     text: string;
     icon?: ImageSourcePropType;
+    style?: StyleProp<ViewStyle>;
+    disabled?: boolean;
 }
 
-export default function Button({ onPress, text, icon }: ButtonProps) {
+export default function Button({ onPress, text, icon, style, disabled }: ButtonProps) {
     return (
-        <TouchableOpacity onPress={onPress} style={styles.botao} activeOpacity={0.85}>
+        <TouchableOpacity
+            onPress={onPress}
+            style={[styles.botao, style, disabled && styles.botaoDisabled]}
+            activeOpacity={0.85}
+            disabled={disabled}
+        >
             {icon && (
                 <View style={styles.iconBox}>
                     <Image source={icon} style={styles.icon} resizeMode="contain" />
@@ -29,6 +36,9 @@ const styles = StyleSheet.create({
         height: 56,
         borderRadius: 8,
         // paddingHorizontal: 8,
+    },
+    botaoDisabled: {
+        opacity: 0.5,
     },
     iconBox: {
         width: 56,

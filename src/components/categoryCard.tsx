@@ -1,14 +1,13 @@
 import { TouchableOpacity, StyleSheet, Text, Image, View, ImageSourcePropType } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-type CategoryProps = {
+type CategoryCardProps = {
     onPress?: () => void;
     icon?: ImageSourcePropType;
     text: string;
-    active?: boolean;
 }
 
-export default function Category({ onPress, icon, text, active = false }: CategoryProps) {
+export default function CategoryCard({ onPress, icon, text }: CategoryCardProps) {
     return (
         <LinearGradient
             colors={['rgba(36, 49, 137, 1)', 'rgba(27, 37, 101, 1)']}
@@ -19,16 +18,12 @@ export default function Category({ onPress, icon, text, active = false }: Catego
                 style={styles.botao}
             >
                 <TouchableOpacity onPress={onPress} style={styles.touchable} activeOpacity={0.85}>
-                    <View style={[styles.checkbox, active && styles.checkboxActive]} />
-
-                    <View style={[styles.content, !active && styles.contentInactive]}>
-                        {icon && (
-                            <View>
-                                <Image source={icon} style={styles.icon} resizeMode="contain" />
-                            </View>
-                        )}
-                        <Text style={styles.text}>{text}</Text>
-                    </View>
+                    {icon && (
+                        <View>
+                            <Image source={icon} style={styles.icon} resizeMode="contain" />
+                        </View>
+                    )}
+                    <Text style={styles.text}>{text}</Text>
                 </TouchableOpacity>
             </LinearGradient>
         </LinearGradient>
@@ -53,30 +48,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    content: {
-        alignItems: 'center',
-        justifyContent: 'center',
         gap: 16,
-    },
-    contentInactive: {
-        opacity: 0.5,
-    },
-    checkbox: {
-        position: 'absolute',
-        top: 8,
-        right: 8,
-        width: 16,
-        height: 16,
-        borderRadius: 4,
-        borderWidth: 1,
-        borderColor: 'rgba(150, 160, 200, 1)',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    checkboxActive: {
-        borderColor: '#E51C44',
-        backgroundColor: '#E51C44',
     },
     icon: {
         width: 48,
